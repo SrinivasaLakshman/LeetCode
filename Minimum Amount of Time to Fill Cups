@@ -1,0 +1,22 @@
+class Solution {
+    public int fillCups(int[] amount) {
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Collections.reverseOrder());
+        for(int i : amount) { //PriorityQueue default implements min heap, can modified to max heap by 3 methods.
+            pq.offer(i);
+        }
+        int min_secs = 0;
+        while(!pq.isEmpty()) {
+            int first = pq.poll();
+            int second = pq.poll();
+            if(first <= 0 && second <= 0) {
+                break;
+            }
+            first--;
+            second--;
+            pq.offer(first);
+            pq.offer(second);
+            min_secs++;
+        }
+        return min_secs;
+    }
+}
