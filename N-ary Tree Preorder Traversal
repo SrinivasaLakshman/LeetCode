@@ -1,0 +1,14 @@
+class Solution {
+    public List<Integer> preorder(Node root) {
+        List answer = new ArrayList<>();
+        if(root != null) 
+            traverseTree(root, answer);
+        return answer;
+    }
+    private void traverseTree(Node node, List answer){
+        answer.add(node.val);
+        for(Node child : node.children){
+            traverseTree(child, answer);
+        }
+    }
+}
