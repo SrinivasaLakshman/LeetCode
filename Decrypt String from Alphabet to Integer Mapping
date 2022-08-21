@@ -1,0 +1,23 @@
+class Solution {
+    public String freqAlphabets(String s) {
+    StringBuilder sb = new StringBuilder();
+    int n=s.length();
+    for (int i = n-1; i >=0 ; i--) {
+        char c= s.charAt(i);
+        if(c=='#'){
+            if(s.charAt(i-2)=='2'){
+                sb.append((char)('j'+Character.getNumericValue(s.charAt(i-1))+10));
+            }
+            else{
+                sb.append((char)('j'+Character.getNumericValue(s.charAt(i-1))));
+            }
+            i-=2;
+        }
+        else{
+            sb.append((char)('a'+Character.getNumericValue(s.charAt(i))-1));
+        }
+        }
+    sb.reverse();
+    return sb.toString();
+    }
+}
