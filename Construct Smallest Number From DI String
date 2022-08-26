@@ -1,0 +1,44 @@
+class Solution {
+    boolean[] used = new boolean[10];
+    int[] answer;
+    boolean found = false;
+    public String smallestNumber(String pattern) {
+        char[] a = pattern.toCharArray();
+        answer = new int[a.length + 1];
+        for (int i = 1; i <= 9; i++) {
+            answer[0] = i;
+            used[i] = true;
+            helper(a, 1);
+            used[i] = false;
+            //  we dont have to make further calls if the answer is built or will get TLE
+            if (found) break;
+        }
+        String result = "";
+        for (int v : answer) {
+            result += v;
+        }
+        return result;
+    }
+    
+    public void helper(char[] a, int idx) {
+        if (idx == a.length + 1) {
+            found = true;
+            return;
+        }
+        int prev = answer[idx - 1];
+        int todo = a[idx - 1] == 'I' ? 1 : -1;
+        //  greedily choosing the smallest value possible
+        for (int option = prev + todo; option > 0  && option < 10; option += todo) {
+            //  if already used skip this option
+            if (used[option]) continue;
+            answer[idx] = option;
+            
+            used[option] = true;
+            helper(a, idx + 1);
+            used[option] = false;
+            
+            //  we dont have to make further calls if the answer is built or will get TLE
+            if (found) break;
+        }
+    }
+}
